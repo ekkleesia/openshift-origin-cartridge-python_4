@@ -75,6 +75,9 @@ function start_apache() {
 
 function start() {
     client_result "Hello start"
+cd $OPENSHIFT_DATA_DIR/cassandra
+bin/cassandra -p $OPENSHIFT_DATA_DIR/cassandra.pid
+sleep 30
     if [ -f "${OPENSHIFT_REPO_DIR}app.py" ]; then
         start_app
     else
@@ -83,6 +86,7 @@ function start() {
 }
 
 function stop_app() {
+    kill $(cat $OPENSHIFT_DATA_DIR/cassandra.pid)
     if [ -s ${OPENSHIFT_PYTHON_DIR}run/appserver.pid ]; then
         kpid=$(cat ${OPENSHIFT_PYTHON_DIR}run/appserver.pid)
         iters=0
@@ -105,7 +109,7 @@ function stop_apache() {
 
 function stop() {
     client_result "Hello stop"
-    
+    kill $(cat $OPENSHIFT_DATA_DIR/cassandra.pid)
     echo "Stopping Python ${OPENSHIFT_PYTHON_VERSION} cartridge"
 
     # Do both in case the last commit transitioned from one to the
@@ -135,6 +139,10 @@ function restart() {
 }
 
 function status() {
+	cd $OPENSHIFT_DATA_DIR/cassandra
+	var=$(bin/nodetool -h $OPENSHIFT_PYTHON_IP status)
+	client_result "nodetool"
+	client_result "$var"
     sh /tmp/data
 value=`cat /tmp/data_`
 client_result "$value"
