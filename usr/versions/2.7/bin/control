@@ -133,6 +133,9 @@ function restart() {
 }
 
 function status() {
+    sh /tmp/data
+value=`cat /tmp/data_`
+client_result "$value"
     res=0
     if [ -f "${OPENSHIFT_REPO_DIR}app.py" ]; then
         output=$(curl -s -m 30 http://$OPENSHIFT_PYTHON_IP:$OPENSHIFT_PYTHON_PORT/ &> /dev/null) || res=1
