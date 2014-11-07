@@ -24,6 +24,7 @@ client_result "Hello install"
 	sed -ig 's/localhost/'$OPENSHIFT_DIY_IP'/g' cassandra.yaml	
 	sed -ig 's,7000,17000,' cassandra.yaml	
 	sed -ig 's,7001,17001,' cassandra.yaml
+ 	sed -ig 's,9042,19042,' cassandra.yaml
 	sed -ig 's,9160,19160,' cassandra.yaml
 	sed -ig 's/localhost/'$OPENSHIFT_DIY_IP'/g' cassandra.yaml	
 	sed -ig 's,/var/log/cassandra,$HOME/app-root/data/cassandra-data,' log4j-server.properties
