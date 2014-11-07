@@ -75,6 +75,7 @@ function start_apache() {
 }
 
 function start() {
+    client_result "Hello start"
     if [ -f "${OPENSHIFT_REPO_DIR}app.py" ]; then
         start_app
     else
@@ -104,6 +105,8 @@ function stop_apache() {
 }
 
 function stop() {
+    client_result "Hello stop"
+    
     echo "Stopping Python ${OPENSHIFT_PYTHON_VERSION} cartridge"
 
     # Do both in case the last commit transitioned from one to the
