@@ -21,6 +21,7 @@ done
 export APPDIR=$OPENSHIFT_PYTHON_DIR
 
 function start_app() {
+    	client_result "Hello start #2"
     echo "Starting Python ${OPENSHIFT_PYTHON_VERSION} cartridge (app.py server)"
 
     if appserver_pidfile_exists; then
